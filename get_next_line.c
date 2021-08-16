@@ -3,9 +3,9 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "get_next_line_utils.c"
+#include "get_next_line.h"
 
-char	*ft_gnl(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*rest;
 	char		*t;
@@ -16,14 +16,15 @@ char	*ft_gnl(int fd)
 	int			readret;
 
 	x = 1;
-	buffersize = BUFFERSIZE;
+	buffersize = BUFFER_SIZE;
+	t = NULL;
 	c = malloc((buffersize + 1) * sizeof(char));
 	while (x == 1)
 	{
 		if (rest == NULL)
 		{
 			readret = read(fd, c, buffersize);
-			if (readret == 0)
+			if (readret == 0 || readret == -1)
 				return (NULL);
 			c[readret] = '\0';
 			rest = ft_strdup(c);
@@ -31,8 +32,13 @@ char	*ft_gnl(int fd)
 		if (ft_strchr(rest, '\n') == -1)
 		{
 			readret = read(fd, c, buffersize);
-			if (readret == 0)
-				return (NULL);
+			if (readret == 0 || readret == -1)
+			{
+				t = ft_strdup(rest);
+				rest = NULL;
+				free (rest);
+				return (t);
+			}
 			c[readret] = '\0';
 			t = ft_strjoin(rest, c);
 			free(rest);
@@ -50,18 +56,20 @@ char	*ft_gnl(int fd)
 	return (NULL);
 }
 
-int	main()
+/* int	main()
 {
 	int	fd;
 	char *s;
 	int x;
 
+	x = 0; 
 	fd = open("foo.txt", O_RDONLY);
-	while (x < 5)
+	do
 	{
-		s = ft_gnl(fd);
-		printf("NEUE %s", s);
+		s = get_next_line(fd);
+		printf("%s", s);
 		x++;
-	}
+	} while  (s != NULL);
 	return (0);
 }
+ */

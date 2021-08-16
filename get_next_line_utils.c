@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "get_next_line.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
