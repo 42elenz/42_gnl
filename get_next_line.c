@@ -29,7 +29,7 @@ char	*get_next_line(int fd)
 			c[readret] = '\0';
 			rest = ft_strdup(c);
 		}
-		if (ft_strchr(rest, '\n') == -1)
+		if (ft_gstrchr(rest, '\n') == -1)
 		{
 			readret = read(fd, c, buffersize);
 			if (readret == 0 || readret == -1)
@@ -46,8 +46,8 @@ char	*get_next_line(int fd)
 		}
 		else
 		{
-			ausgabe = ft_substr(rest, 0, ft_strchr(rest, '\n') + 1);
-			t = ft_substr(rest, (ft_strchr(rest, '\n') + 1), ft_strlen(rest));
+			ausgabe = ft_substr(rest, 0, ft_gstrchr(rest, '\n') + 1);
+			t = ft_substr(rest, (ft_gstrchr(rest, '\n') + 1), ft_strlen(rest));
 			free (rest);
 			rest = t;
 			return (ausgabe);
@@ -71,5 +71,4 @@ char	*get_next_line(int fd)
 		x++;
 	} while  (s != NULL);
 	return (0);
-}
- */
+} */

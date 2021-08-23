@@ -96,7 +96,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return ((ft_strlen(src)));
 }
 
-int	ft_strchr(const char *s, int c)
+int	ft_gstrchr(const char *s, int c)
 {
 	int		i;
 	char	*p;
